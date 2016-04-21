@@ -1,0 +1,515 @@
+% ;; -*- coding: iso-latin-1; TeX-PDF-mode: t; TeX-master: "main" -*-%
+
+%\documentclass[orivec]{llncs}
+\documentclass[12pt,oneside,a4]{article}
+\usepackage[spanish,english]{babel}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{latexsym,amssymb,stmaryrd}
+\usepackage{fancybox,epic}
+\usepackage[algoruled,vlined,english]{algorithm2e}
+\usepackage{amsmath,amsthm}
+\usepackage{colortbl}
+\usepackage{color} 
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[draft]{fixme}
+\usepackage[color=green!20]{todonotes}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{paralist}
+
+\usepackage{arydshln}
+
+\usepackage{url}
+
+\usepackage{listings}
+\lstset{
+  columns=flexible,
+  frame=Ltb,
+  framerule=0pt,
+  aboveskip=0mm,
+  framextopmargin=0pt,
+  framexbottommargin=0pt,
+  framexleftmargin=0cm,
+  framesep=0pt,
+  rulesep=0pt,
+  % 
+  stringstyle=\ttfamily,
+  showstringspaces = false,
+  basicstyle=\small\sffamily,
+  commentstyle=\color{black},
+  keywordstyle=\small\bfseries,
+  % 
+  numbers=left,
+  mathescape=true,
+  numbersep=0pt,
+  numberstyle=\tiny,
+  numberfirstline=true,
+  numberblanklines=true,
+  firstnumber=auto,
+  breaklines=true,
+  language=Java,
+  morekeywords={if,then,else,while,do,return,await,get,skip,release,begin} 
+}
+
+\def\lzero{\textbf{\scriptsize 0}}
+\def\lone{\textbf{\scriptsize 1}}
+\def\ltwo{\textbf{\scriptsize 2}}
+\def\linf{\scriptsize $\mathbf{\infty}$}
+\def\lzerot{\textbf{\tiny 0}}
+\def\lonet{\textbf{\tiny 1}}
+\def\ltwot{\textbf{\tiny 2}}
+\def\linf{\scriptsize $\mathbf{\infty}$}
+
+\let\origthelstnumber\thelstnumber
+\makeatletter
+\newcommand*\Suppressnumber{%
+  \lst@AddToHook{OnNewLine}{%
+    \let\thelstnumber\relax%
+     \advance\c@lstnumber-\@ne\relax%
+    }%
+}
+
+\newcommand*\Reactivatenumber{%
+  \lst@AddToHook{OnNewLine}{%
+   \let\thelstnumber\origthelstnumber%
+   \advance\c@lstnumber\@ne\relax}%
+}
+
+
+
+\newcommand{\W}{{\mathbb W}}
+
+\newcommand{\ppset}{\ensuremath{\mathcal{P}}}
+\newcommand{\mhpset}[0]{\mathcal{M}}
+\newcommand{\absobjset}[0]{\ensuremath{\mathcal{O}}}
+\newcommand{\abstasktoobj}[0]{\ensuremath{\mathcal{A}_O}}
+\newcommand{\abstaskset}[0]{\ensuremath{\mathcal{T}}}
+
+\newcommand{\uniqueSet}[0]{\ensuremath{\mathit{Ut}}}
+
+
+\newcommand{\buried}[0]{\ensuremath{\mathit{buried}}}
+\newcommand{\abstkid}[0]{\ensuremath{\mathit{tk}}\xspace}
+\newcommand{\absobjid}[0]{\ensuremath{\mathit{ob}}\xspace}
+\newcommand{\cogset}{\ensuremath{\mathtt{Cg}}}
+%\newcommand{\objset}{\ensuremath{\mathtt{Ob}}}
+\newcommand{\tkset}{\ensuremath{\mathtt{T}}}
+
+
+%
+%
+
+% buffer syntax
+%
+\newcommand{\nil}{\mbox{\lstinline!null!}\xspace}
+\newcommand{\idle}{\mbox{\lstinline!idle!}\xspace}
+\newcommand{\integer}{\mbox{\lstinline!int!}\xspace}
+\newcommand{\newk}[1]{\ensuremath{\mbox{\lstinline!new!}~#1}}
+\newcommand{\newb}{\ensuremath{\mbox{\lstinline!newBuffer!}}\xspace}
+\newcommand{\await}[1]{\ensuremath{\mbox{\lstinline!await!}~#1?}}
+\newcommand{\awaitempt}{\ensuremath{\mbox{\lstinline!await!}}\xspace}
+\newcommand{\awaitp}[1]{\ensuremath{\mbox{\lstinline!await!}^{\prime}~#1?}}
+\newcommand{\get}[1]{\ensuremath{#1.\mbox{\lstinline!get!}}}
+\newcommand{\getempt}{\ensuremath{\mbox{\lstinline!get!}}\xspace}
+\newcommand{\assign}{\mbox{\lstinline!=!}}
+\newcommand{\ifte}{\mbox{\lstinline!if!}\xspace}
+\newcommand{\iftethen}{\mbox{\lstinline!then!}\xspace}
+\newcommand{\ifteelse}{\mbox{\lstinline!else!}\xspace}
+\newcommand{\while}{\mbox{\lstinline!while!}\xspace}
+\newcommand{\whilebody}{\mbox{\lstinline!do!}\xspace}
+\newcommand{\return}{\mbox{\lstinline!return!}\xspace}
+\newcommand{\returnval}[1]{\mbox{\lstinline!return #1!}\xspace}
+\newcommand{\skipp}{\mbox{\lstinline!skip!}\xspace}
+\newcommand{\release}{\mbox{\lstinline!release!}\xspace}
+\newcommand{\beginaux}{\mbox{\lstinline!begin!}\xspace}
+\newcommand{\this}{\mbox{\lstinline!this!}\xspace}
+\newcommand{\true}{\ensuremath{{\mathord{\mathit{true}}}}}
+\newcommand{\false}{\ensuremath{{\mathord{\mathit{false}}}}}
+\newcommand{\identifiers}{\ensuremath{\C{X}}}
+\newcommand{\classes}{\ensuremath{\C{K}}}
+\newcommand{\class}{\ensuremath{\kappa}}
+\newcommand{\ABS}[0]{\ensuremath{\mathtt{ABS}}}
+
+\newcommand{\many}[1]{\overline{#1}} 
+\newcommand{\buffer}{\mathit{obj}}
+\newcommand{\pline}[1]{\ensuremath{\mbox{L}{#1}}}
+\newcommand{\pmhsft}[1]{\ensuremath{\mhfst_{#1}}}
+
+
+% syntax
+%
+%\newcommand{\nil}{\mbox{\lstinline!null!}\xspace}
+%\newcommand{\idle}{\mbox{\lstinline!idle!}\xspace}
+%\newcommand{\integer}{\mbox{\lstinline!int!}\xspace}
+%\newcommand{\newk}[1]{\ensuremath{\mbox{\lstinline!new!}~#1}}
+%\newcommand{\await}[1]{\ensuremath{\mbox{\lstinline!await!}~#1?}}
+%\newcommand{\awaitp}[1]{\ensuremath{\mbox{\lstinline!await!}^{\prime}~#1?}}
+\newcommand{\awaitg}[1]{\ensuremath{\mbox{\lstinline!await!}~#1}?}
+%\newcommand{\get}[1]{\ensuremath{#1.\mbox{\lstinline!get!}}}
+%\newcommand{\assign}{\mbox{\lstinline!=!}}
+%\newcommand{\ifte}{\mbox{\lstinline!if!}\xspace}
+%\newcommand{\iftethen}{\mbox{\lstinline!then!}\xspace}
+%\newcommand{\ifteelse}{\mbox{\lstinline!else!}\xspace}
+%\newcommand{\while}{\mbox{\lstinline!while!}\xspace}
+%\newcommand{\whilebody}{\mbox{\lstinline!do!}\xspace}
+%\newcommand{\return}{\mbox{\lstinline!return!}\xspace}
+%\newcommand{\returnval}[1]{\mbox{\lstinline!return #1!}\xspace}
+%\newcommand{\skipp}{\mbox{\lstinline!skip!}\xspace}
+%\newcommand{\release}{\mbox{\lstinline!release!}\xspace}
+%\newcommand{\beginaux}{\mbox{\lstinline!begin!}\xspace}
+%\newcommand{\this}{\mbox{\lstinline!this!}}
+%\newcommand{\true}{\ensuremath{{\mathord{\mathit{true}}}}}
+%\newcommand{\false}{\ensuremath{{\mathord{\mathit{false}}}}}
+%\newcommand{\identifiers}{\ensuremath{\C{X}}}
+%\newcommand{\classes}{\ensuremath{\C{K}}}
+%\newcommand{\class}{\ensuremath{\kappa}}
+%\newcommand{\ABS}[0]{\ensuremath{\mathtt{ABS}}}
+
+%\newcommand{\call}{\mbox{\lstinline!call(m,!\ensuremath{m(o',\bar{x},y)})}\xspace}
+\newcommand{\call}[4]{\ensuremath{#1 \assign #2\cdot #3(#4)}\xspace}
+
+\newcommand{\C}[1]{{\cal #1}}
+\newcommand{\types}[0]{{\ensuremath{\textit{Types}}}}
+\newcommand{\ftypes}[0]{\ensuremath{\types_{\C{F}}}}
+\newcommand{\future}[1]{\ensuremath{Fut\langle #1 \rangle}}
+
+\newcommand{\secbeg}{\vspace{-0.1cm}}
+
+%% semaitics
+%%
+\newcommand{\semrule}[2]{
+\begin{array}{c}
+#1 \\
+\hline
+#2
+\end{array}
+}
+
+\newcommand{\object}[5]{\ensuremath{\mathit{obj}(#1,#2,#3,#4,#5)}}
+% \newcommand{\ob}{\ensuremath{\mathtt{Obj}}}
+\newcommand{\state}[2]{\tuple{#1,#2}}
+\newcommand{\queue}[0]{\C{Q}}
+\newcommand{\emptyqueue}[0]{\emptyset}
+\newcommand{\semderiv}{\leadsto}
+\newcommand{\varstable}[0]{\ensuremath{\mathit{l}}}
+\newcommand{\fieldstable}[0]{\ensuremath{\mathit{h}}}
+\newcommand{\newvarstable}[2]{\ensuremath{\mathit{newl}(#1,#2)}}
+\newcommand{\newfieldstable}[1]{\ensuremath{\mathit{newh}(#1)}}
+\newcommand{\type}[1]{\ensuremath{\mathit{type}(#1)}}
+\newcommand{\lookup}[3]{\ensuremath{\mathit{lookup}(#1,#2,#3)}}
+\newcommand{\eval}[3]{\ensuremath{\mathit{eval}(#1,#2,#3)}}
+\newcommand{\body}[1]{\ensuremath{\mathit{body}(#1)}}
+\newcommand{\instr}[0]{\ensuremath{\mathit{b}}}
+\newcommand{\destiny}[0]{\ensuremath{\mathit{\delta_y}}}
+\newcommand{\instrs}[0]{\ensuremath{\mathit{bs}}}
+
+\newcommand{\absvals}[0]{\ensuremath{{\cal A}}}
+\newcommand{\mabsvals}[0]{\ensuremath{{\cal B}}}
+\newcommand{\habsvals}[0]{\ensuremath{{\cal H}}}
+\newcommand{\transfun}[0]{\ensuremath{\tau}\xspace}
+\newcommand{\transfunh}[0]{\ensuremath{\tau_H}\xspace}
+\newcommand{\localmhp}[1]{\ensuremath{{\cal L}_{_{#1}}}}
+\newcommand{\localmhpvar}[1]{\ensuremath{X_{#1}}}
+\newcommand{\localmhpcond}[1]{\ensuremath{{\cal L}^{H}_{_{#1}}}}
+
+\newcommand{\widen}[0]{\ensuremath{\triangle}}
+
+\newcommand{\mhpgraph}[1]{\ensuremath{{\cal G}_{_{#1}}}}
+\newcommand{\condmhpgraph}[1]{\ensuremath{{\cal G}^H_{_{#1}}}}
+\newcommand{\edge}[3]{\ensuremath{#1 \stackrel{_{#3}}{\longrightarrow} #2}}
+\renewcommand{\path}[2]{\ensuremath{#1 \leadsto #2}}
+\newcommand{\patth}[2]{\ensuremath{#1 \leadsto #2}}
+\newcommand{\parampath}[3]{\ensuremath{#1 \stackrel{_{#3}}{\leadsto} #2}}
+\newcommand{\epath}[4]{\ensuremath{#1 \stackrel{{\tiny #4}}{\rightarrow} #2 \leadsto #3}}
+\newcommand{\eepath}[6]{\ensuremath{#1 \stackrel{{\tiny #5}}{\rightarrow} #2 \stackrel{{\tiny #6}}{\rightarrow} #3 \leadsto #4}}
+\newcommand{\myleadsto}[1]{\stackrel{{\tiny #1}}{\rightarrow}}
+
+
+
+\newcommand{\constatemhpset}[1]{\ensuremath{\C{E}^r_{#1}}}
+\newcommand{\statemhpset}[1]{\ensuremath{\C{E}({#1})}}
+
+\newcommand{\concmhpset}[1]{\ensuremath{\C{E}^r_{#1}}}
+\newcommand{\rabsmhpset}[1]{\ensuremath{\tilde{\C{E}}^{\mathtt{mhf}}_{#1}}}
+
+\newcommand{\objectconmhpset}[1]{\ensuremath{\C{E}^o_{#1}}}
+
+\newcommand{\stategmhpset}[1]{\ensuremath{\C{EG}^r_{#1}}}
+\newcommand{\astategmhpset}[1]{\ensuremath{\C{EG}_{#1}}}
+
+
+\newcommand{\tkids}[0]{\ensuremath{\C{T}}\xspace}
+\newcommand{\tkid}[0]{\ensuremath{\mathit{tid}}\xspace}
+\newcommand{\objids}[0]{\ensuremath{\C{O}}\xspace}
+% \newcommand{\objid}[0]{\ensuremath{\mathit{oid}}\xspace}
+\newcommand{\objid}[0]{\ensuremath{\mathit{bid}}\xspace}
+\newcommand{\lk}[0]{\ensuremath{\mathit{lk}}\xspace}
+\newcommand{\initstate}[0]{\ensuremath{\mathit{S_0}}\xspace}
+
+\newcommand{\mainmethod}[0]{\mbox{\lst{main}}\xspace}
+\newcommand{\tidtoobjid}[1]{\ensuremath{\mathit{object}(#1)}}
+
+
+\newcommand{\entrypp}[1]{\ensuremath{p_{\mathring{#1}}}}
+\newcommand{\pp}[1]{\ensuremath{\mathit{pp}(#1)}}
+
+\newcommand{\msetelem}[2]{\ensuremath{(#1,#2)}}
+
+
+
+\newcommand{\obabs}[5]{\ensuremath{\mathit{obj}(#1,#2,#3,#4,#5)}}
+\newcommand{\stateabs}[4]{\ensuremath{\langle #1,#2,#3,#4 \rangle}}
+\newcommand{\env}[5]{\ensuremath{#1 = \mathit{env}(#2,#3,#4,#5)}}
+\newcommand{\num}{\ensuremath{\mathit{c}}}
+\newcommand{\cons}{\ensuremath{\mathit{cons}}}
+\newcommand{\ctxt}[1]{\ensuremath{\mathit{ctxt}(#1)}}
+
+
+%semantic specifics commands
+\newcommand{\cgraph}[2]{\ensuremath{\langle #1,#2\rangle}}
+\newcommand{\fgstate}[0]{\ensuremath{\langle O,Tk\rangle}}
+\newcommand{\sgstate}[1]{\ensuremath{\langle O_{#1},Tk_{#1}\rangle}}
+\newcommand{\taskpp}[3]{\ensuremath{tsk(#1,#2,#3)}}
+\newcommand{\etask}[0]{\ensuremath{tsk(\tkid,\objid,m,l,s,\Lmhp)}}
+\newcommand{\maintask}[0]{\ensuremath{tsk(0,0,\mainmethod,l_0,s_0,\Lmhp)}}
+\newcommand{\mainnode}[0]{\ensuremath{(0,\pp{s_0})}}
+\newcommand{\etasksub}[1]{\ensuremath{tsk(\tkid_{#1},\objid_{#1},m_{#1},l_{#1},s_{#1},\Lmhp_{#1})}}
+\newcommand{\etaskstmt}[1]{\ensuremath{tsk(\tkid,\objid,m,l,#1,\Lmhp)}}
+\newcommand{\etasksubstmt}[2]{\ensuremath{tsk(\tkid_{#1},\objid_{#1},m_{#1},l_{#1},#2,\Lmhp_{#1})}}
+\newcommand{\Lmhp}[0]{\ensuremath{{\cal L}r}}
+%concrete defs
+\newcommand{\cmhpgraph}[1]{\ensuremath{{\cal G}r_{_{#1}}}}
+\newcommand{\cpps}[1]{\ensuremath{{cP}_{_{\cal #1}}}}
+
+\newcommand{\cedge}[2]{\ensuremath{#1 \rightarrow #2}}
+%partial analysis
+\newcommand{\intpoints}[1]{\ensuremath{i{#1}_{_{\cal P}}}}
+\newcommand{\partialmhpset}[1]{\ensuremath{p\tilde{\C{E}}_{#1}}}
+\newcommand{\directpath}[2]{\ensuremath{#1 \stackrel{_{d}}{\leadsto} #2}}
+%algorithms
+\newcommand{\matoms}[1]{\ensuremath{\tuple{\mathbb{P}_{#1},\mathbb{A}_{#1},\mathbb{E}_{#1},p_{#1},a_{#1},e_{#1}}}}
+\newcommand{\matomsp}[1]{\ensuremath{\tuple{\mathbb{P}_{#1}',\mathbb{A}_{#1}',\mathbb{E}_{#1}',p_{#1}',a_{#1}',e_{#1}'}}}
+\newcommand{\matomspp}[1]{\ensuremath{\tuple{\mathbb{P}_{#1}'',\mathbb{A}_{#1}''
+,\mathbb{E}_{#1}'',p_{#1}'',a_{#1}'',e_{#1}''}}}
+
+% priority local phase
+\newcommand{\prmhpatom}[4]{\ensuremath{\tuple{#1,#2,#3,#4}}}
+\newcommand{\thisbuf}[0]{\ensuremath{\mathtt{t}}\xspace}
+\newcommand{\othbuf}[0]{\ensuremath{\texttt{o}}\xspace}
+\newcommand{\currpr}[0]{\ensuremath{\texttt{p}}\xspace}
+\newcommand{\pend}[1]{\check{#1}}
+\newcommand{\finish}[1]{\hat{#1}}
+\newcommand{\transfunp}[0]{\ensuremath{\tau}_{\currpr}}
+%\newcommand{\predge}[4]{\ensuremath{#1 \rightarrow_{#4}^{#3} #2}}
+\newcommand{\predge}[4]{\ensuremath{#1 \stackrel{_{#3}}{\rightarrow}_{#4}  #2}}
+\newcommand{\globalconmhpsetnondet}[1]{\ensuremath{\C{E}^{\mi{non-det}}_{#1}}}
+\newcommand{\absmhpsetprio}[1]{\ensuremath{\C{E}^{\mi{prio}}_{#1}}}
+
+
+% object-level stuff
+%
+\newcommand{\ac}[0]{\ensuremath{\C{C}\xspace}}
+\newcommand{\acec}[0]{\ensuremath{g}}
+\newcommand{\acmode}[0]{\ensuremath{c}}
+\newcommand{\accenters}[1]{\ensuremath{E_{#1}\xspace}}
+\newcommand{\acmodes}[1]{\ensuremath{C_{#1}\xspace}}
+\newcommand{\acppsmap}[1]{\ensuremath{F_{#1}\xspace}}
+\newcommand{\acmethod}[2]{\ensuremath{{#1}_{#2}\xspace}}
+
+
+
+\newcommand{\lst}[1]{\mbox{\lstinline!#1!}}
+
+
+% \newcommand{\object}[5]{\ensuremath{\mathit{obj}(#1,#2,#3,#4,#5)}}
+\newcommand{\ob}{\ensuremath{\mathtt{Obj}}}
+\newcommand{\taskset}{\ensuremath{\mathtt{Tsk}}}
+\newcommand{\objset}{\ob}
+% \newcommand{\state}[2]{\tuple{#1,#2}}
+% \newcommand{\queue}[0]{\C{Q}}
+% \newcommand{\emptyqueue}[0]{\emptyset}
+% \newcommand{\semderiv}{\leadsto}
+% \newcommand{\varstable}[0]{\ensuremath{\mathit{l}}}
+% \newcommand{\fieldstable}[0]{\ensuremath{\mathit{h}}}
+% \newcommand{\newvarstable}[2]{\ensuremath{\mathit{newl}(#1,#2)}}
+% \newcommand{\newfieldstable}[1]{\ensuremath{\mathit{newh}(#1)}}
+% \newcommand{\type}[1]{\ensuremath{\mathit{type}(#1)}}
+% \newcommand{\lookup}[3]{\ensuremath{\mathit{lookup}(#1,#2,#3)}}
+% \newcommand{\eval}[3]{\ensuremath{\mathit{eval}(#1,#2,#3)}}
+% \newcommand{\body}[1]{\ensuremath{\mathit{body}(#1)}}
+% \newcommand{\instr}[0]{\ensuremath{\mathit{b}}}
+% \newcommand{\destiny}[0]{\ensuremath{\mathit{\delta_y}}}
+% \newcommand{\instrs}[0]{\ensuremath{\mathit{bs}}}
+
+\newcommand{\mi}[1]{\mathit{#1}}
+\newcommand{\pstate}[0]{\mathit{S}}
+\newcommand{\mhh}[0]{MHH\xspace}
+\newcommand{\mhhset}[1]{\ensuremath{\mathtt{mhhset}(#1)}\xspace}
+\newcommand{\mhhseed}[1]{\ensuremath{\mathtt{mhhseed}(#1)}\xspace}
+
+
+%% for escaping special chars in shownote
+%%
+\usepackage[T1]{fontenc}
+\newcommand{\shownote}[1]{\detokenize{#1}}
+
+\usetikzlibrary{fadings}
+
+\tikzset{  
+  varedge/.style = { dashed, -> },
+}
+
+
+
+%% general
+
+\newcommand{\tuple}[1]{\langle #1 \rangle}
+
+%% programs
+
+\newcommand{\exitpp}[1]{\ensuremath{\ell_{#1}}}
+\newcommand{\nondet}{\ensuremath{*}}
+\newcommand{\pre}[1]{\texttt{pre}(#1)}
+\newcommand{\futures}[1]{\ensuremath{\mathtt{futures}({#1})}}
+
+%% mhf
+
+\newcommand{\mhf}[0]{MHF\xspace}
+\newcommand{\mhfres}[1]{\ensuremath{\C{F}(#1)}}
+\newcommand{\futdep}[2]{\ensuremath{{#1 \triangleright #2}}}
+\newcommand{\futdepset}[0]{\ensuremath{{\C{D}_\C{F}}}}
+
+\newcommand{\mhfst}[0]{\ensuremath{\Phi}\xspace}
+\newcommand{\concmhfset}[1]{\ensuremath{\mathtt{mhf}(#1)}\xspace}
+\newcommand{\absmhfset}[1]{\ensuremath{\mathtt{mhf_{\alpha}}(#1)}\xspace}
+\newcommand{\mhfdomain}[1]{\ensuremath{\C{A}_{#1}}\xspace}
+\newcommand{\mhfequations}[1]{\ensuremath{\C{H}_{#1}}\xspace}
+\newcommand{\mhfconc}[1]{\ensuremath{\C{F}({#1})}\xspace}
+\newcommand{\reached}[1]{\ensuremath{\mathtt{REACHED}(#1)}\xspace}
+
+%% mhp
+
+\newcommand{\mhp}[0]{MHP\xspace}
+\newcommand{\lmhp}[0]{LMHP\xspace}
+\newcommand{\act}[1]{\ensuremath{\tilde{#1}}}
+\newcommand{\esc}[1]{\ensuremath{\hat{#1}}}
+\newcommand{\pen}[1]{\ensuremath{\check{#1}}}
+\newcommand{\actesc}[1]{\ensuremath{\breve{#1}}}
+\newcommand{\mhpatom}[2]{\ensuremath{{#1}{:}{#2}}}
+\newcommand{\extmhpatom}[3]{\ensuremath{{#1}{:}{#2}{:}{#3}}}
+\newcommand{\anyfut}[0]{\ensuremath{\star}}
+\newcommand{\lmhpstate}[0]{\ensuremath{M}\xspace}
+\newcommand{\lmhpst}[0]{\ensuremath{\Psi}\xspace}
+\newcommand{\lmhpjoin}[0]{\ensuremath{\sqcup}}
+\newcommand{\lmhpset}[1]{\ensuremath{\C{M}(#1)}}
+
+%% graph
+
+\newcommand{\mhpedge}[3]{\ensuremath{#1 \overset{#3}{\longrightarrow} #2}}
+\newcommand{\mhppath}[2]{\ensuremath{#1 \leadsto #2}}
+\newcommand{\mhplpath}[4]{\ensuremath{#1 \overset{#4}{\longrightarrow} #2 \leadsto #3}}
+\newcommand{\mhpllpath}[5]{\ensuremath{#1 \longrightarrow #2 \overset{#5}{\longrightarrow} #3 \leadsto #4}}
+
+
+\newcommand{\globalconmhpset}[1]{\ensuremath{\C{E}_{#1}}}
+\newcommand{\absmhpset}[1]{\ensuremath{\tilde{\C{E}}_{#1}}}
+\newcommand{\absmhpsetimp}[1]{\ensuremath{\hat{\C{E}}_{#1}}}
+
+\newcommand{\pps}[1]{\ensuremath{\mathtt{ppoints}(#1)}}
+\newcommand{\methods}[1]{\ensuremath{\mathtt{methods}(#1)}}
+
+
+\newcommand{\oldedgelabelgr}[2]{\texttt{\footnotesize {#1}{:}{#2}}}
+\newcommand{\newedgelabelgr}[4]{\texttt{\footnotesize {#1}{\!:\!}{#2}{\!:\!}{#3}{\!:\!}{\,[}{#4}{]}}}
+\newcommand{\oldedgelabeltxt}[2]{{#1}{:}{#2}}
+\newcommand{\newedgelabeltxt}[4]{{#1}{:}{#2}{:}{#3}{:} {[}{#4}{]}}
+
+\newcommand{\mlocals}[1]{\ensuremath{L_{#1}}}
+\newcommand{\mparams}[1]{\ensuremath{P_{#1}}}
+\newcommand{\mvars}[1]{\ensuremath{V_{#1}}}
+\newcommand{\fmodels}[1]{\left[\!\left[#1\right]\!\right]}
+\newcommand{\iproc}[5]{\ensuremath{\mathtt{\oplus}(#1,#2,#3,#4,#5)}}
+\newcommand{\fv}[0]{\ensuremath{\xi}}
+
+
+\newcommand{\pa}[0]{\phantom{\ensuremath{\bullet}\xspace}}
+\newcommand{\pb}[0]{\ensuremath{\circ}\xspace}
+\newcommand{\pc}[0]{\ensuremath{\bullet}\xspace}
+\newcommand{\pd}[0]{\ensuremath{\clubsuit}\xspace}
+\newcommand{\pe}[0]{\ensuremath{\spadesuit}\xspace}
+
+
+\tikzset{
+%my style/.style={<tikz options>},...}
+pp/.style={anchor=west,draw,circle,inner sep=0pt, minimum width=10pt, fill=yellow!10},
+fut/.style={anchor=west,draw,circle,inner sep=0pt},
+enpp/.style={anchor=west,draw,circle,inner sep=0pt},
+exipp/.style={anchor=west,draw,circle,inner sep=0pt},
+esc/.style= {anchor=west,draw,rectangle,inner sep=1pt, fill=green!30},
+pen/.style={anchor=west,draw,rectangle,inner sep=1pt, fill=green!30},
+act/.style     = {anchor=west,draw,rectangle,inner sep=1pt, fill=green!30},
+weighta/.style = {pos=0.5,inner sep=0.5pt},
+methodframe/.style = {dashed,opacity=0.8},
+title/.style = {fill=blue!10, text=black, inner sep=1pt}
+}
+
+
+% \newtheorem{example}{Example}[chapter]
+% \newtheorem{definition}{Definition}[chapter]
+% \newtheorem{theorem}{Theorem}[chapter]
+% \newtheorem{lemma}{Lemma}[chapter]
+% \newtheorem{corollary}{Corollary}[chapter]
+
+% \title{May-Happen-in-Parallel Analysis for Asynchronous Programs
+%   with Inter-Procedural Synchronization}
+
+% \author{Elvira Albert \and Samir Genaim \and Pablo Gordillo}
+
+% \institute{Complutense University of Madrid (UCM),  Spain}
+
+% \pagestyle{plain} 
+\include{costa-defs}
+
+
+
+\begin{document}
+
+%\maketitle 
+
+\input title
+\newpage
+\thispagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents 
+\thispagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\thispagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+
+\newpage
+\input intro
+\newpage
+\input arquitectura
+\newpage
+\input modelo
+\newpage
+\input conexiones
+
+%Bibliograph
+\newpage
+\input ref.bbl
+% \bibliographystyle{costa-plain}
+% \costabib
+
+% \newpage
+% \appendix
+%\input full-examples
+%\input proof2extended
+
+
+\end{document}
+
