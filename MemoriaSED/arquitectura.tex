@@ -2,6 +2,35 @@
 
 Para este proyecto se han seleccionado dos placas Arduinos UNO y una
 Discovery ...[Modelo de la placa] así como un sensor fotovoltaico
-[modelo], y un sensor de temperatura y humedad DH22.
+BH1750 GY-302, y un sensor de temperatura y humedad DHT22.
+
+\subsection{M\'odulo BH1750}
+El componente BH1750 GY-302 es un sensor fotovoltaico que permite
+llevar a cabo mediciones digitales de la intensidad de luz
+ambiental. Se trata de una versi\'on mejorada de los sensores
+anal\'ogicos de luz formados por fotoresistores LDR, pequeñas resistencias que
+var\'ian en funci\'on de la luz que incide sobre la misma.
+
+El sensor devuelve un valor medido en Lux. Un Lux es la unidad
+derivada del Sistema Internacional de Unidades para el nivel de
+iluminaci\'on y equivale a un $lumen/m²$. Las mediciones se pueden
+llevar a cabo en dos modos: \emph{modo medici\'on una vez} y \emph{modo
+  medici\'on continua}. Adem\'as existen distintas resoluciones (1lx,
+0.5lx, 4lx) con
+las que llevar a cabo las mediciones y de esta manera ajustar la
+precisi\'on de estas. As\'i el m\'odulo es capaz de detectar un
+m\'inimo de 0.11 lx y un m\'aximo de 100000 lx. 
+
+La comunicaci\'on se lleva a cabo a través de I2C. En funci\'on de
+como se encuentre conectado el pin ADDR del m\'odulo se puede trabajar
+con dos direcciones:
+\begin{itemize}
+\item Si se encuentra conectado al pin A3 o a alimentaci\'on se
+  trabajar\'a con la direcci\'on 0x5C.
+\item Si se deja sin conectar o conectado a GND la comunicaci\'on I2C
+  se llevar\'a a cabo mediante la direcci\'on 0x23.
+\end{itemize}
+
+
 
 Descripción de las placas y los sensores
