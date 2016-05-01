@@ -8,8 +8,8 @@ BH1750 GY-302, y un sensor de temperatura y humedad DHT22.
 El componente BH1750 GY-302 es un sensor fotovoltaico que permite
 llevar a cabo mediciones digitales de la intensidad de luz
 ambiental. Se trata de una versi\'on mejorada de los sensores
-anal\'ogicos de luz formados por fotoresistores LDR, pequeñas resistencias que
-var\'ian en funci\'on de la luz que incide sobre la misma.
+anal\'ogicos de luz formados por fotoresistores LDR, peque\~nas resistencias que
+var\'ian en funci\'on de la luz que incide sobre las mismas.
 
 El sensor devuelve un valor medido en Lux. Un Lux es la unidad
 derivada del Sistema Internacional de Unidades para el nivel de
@@ -21,6 +21,19 @@ las que llevar a cabo las mediciones y de esta manera ajustar la
 precisi\'on de estas. As\'i el m\'odulo es capaz de detectar un
 m\'inimo de 0.11 lx y un m\'aximo de 100000 lx. 
 
+De la combinaci\'on del modo de medici\'on y la resoluci\'no se
+obtienen 6 modos de ejecuci\'on:
+\begin{itemize}
+\item Continuosly H-Resolution Mode
+\item Continuosly H-Resolution Mode2
+\item Continuosly L-Resolution Mode
+\item One Time H-Resolution Mode
+\item One Time H-Resolution Mode2
+\item One Time L-Resolution Mode
+\end{itemize}
+
+Los modos High(H) trabajan con resoluciones de 1 lx y 0.5 lx 
+
 La comunicaci\'on se lleva a cabo a través de I2C. En funci\'on de
 como se encuentre conectado el pin ADDR del m\'odulo se puede trabajar
 con dos direcciones:
@@ -31,6 +44,42 @@ con dos direcciones:
   se llevar\'a a cabo mediante la direcci\'on 0x23.
 \end{itemize}
 
+\subsection{M\'odulo DTH22}
 
+El m\'odulo DTH22 es un sensor de humedad y temperatura
+digital. Normalmente el sensor cuenta con 4 pines, uno para la
+alimentaci\'on, otro para tierra, uno de datos y un cuarto que no se
+utiliza. En este caso se ha utilizado el modelo AOSONG AM2302 con la
+ventaja de que \'unicamente posee los tres pines h\'abiles y posee una
+resistencia interna permitiendo su funcionamiento sin necesitar
+ning\'un otro componente.
+
+Las mediciones se llevan a cabo en conjuntos de 40 bits donde los 16
+primeros hacen referencia a la humedad, los 16 siguientes a la
+temperatura y los 8 \'ultimos como checksum. Todas las mediciones se
+realizan de manera digital. La comunicaci\'on comienza con una se\~nal
+del microcontrolador al sensor indicando que comienza la
+transmisi\'on. Mientras no se reciba esta se\~nal el sensor se encuentra
+en estado de stand-by. Tras recibir la se\~nal de comienzo el sensor
+responder\'a enviando los 40 bits de datos tras los cuales volver\'a
+al estado de stand-by hasta que reciba una nueva se\~nal de comienzo de
+la transmisi\'on. El proceso completo de comunicaci\'on se lleva a
+cabo en unos dos segundos. La transmisi\'on de todos los bits por
+parte del sensor al microcontrolador comienza con una se\~nal baja (LOW)
+de 50 $\mu$s y posteriormente una se\~nal alta (HIGH) en funci\'on de
+cuya longitud el bit transmitido ser\'a un 1 o un 0:
+\begin{itemize}
+\item Si la se\~nal se transmite durante un tiempo inferior a 30 $\mu$s
+  el bit transmitido ser\'a un 0.
+
+\item Si la se\~nal HIGH se transmite durante 70 $\mu$s el bit
+  transmitido ser\'a un 1.
+
+\end{itemize}
+
+Para conocer el n\'umero de ciclos transmitidos se hace de forma relativa, es decir,
+se mide el n\'umero de ciclos propios de LOW y se compara este valor con
+el n\'umero de ciclos de HIGH, de esta forma se puede saber si se ha trasmitido
+un 1 o un 0.
 
 Descripción de las placas y los sensores
