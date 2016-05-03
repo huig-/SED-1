@@ -1,5 +1,5 @@
-#ifndef _COMM_H
-#define _COMM_H
+#ifndef COMM_H
+#define COMM_H
 
 #include <stdio.h>
 #include <SotwareSerial.h>
@@ -17,5 +17,9 @@ struct Data {
     float value;
 };
 
-void send(SoftwareSerial serial, float data, data_type type);
-float receive(SoftwareSerial serial, Data *data);
+class Comm {
+    public:
+	void send(SoftwareSerial serial, float data, data_type type);
+	Data receive(SoftwareSerial serial);
+};
+

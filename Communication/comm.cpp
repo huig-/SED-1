@@ -1,6 +1,6 @@
 #include "comm.h"
 
-void send(SoftwareSerial serial, float data, data_type type) {
+void Comm::send(SoftwareSerial serial, float data, data_type type) {
     char msg[SIZE];
     switch (type) {
 	case LIGHT:
@@ -14,10 +14,10 @@ void send(SoftwareSerial serial, float data, data_type type) {
 	    break;
     }
     sprintf(&msg[1], "%f", data);
-    serial.println(msg);
+    serial.print(msg);
 }
 
-void receive(SoftwareSerial serial, Data *data) {
+Data Comm::receive(SoftwareSerial serial) {
     char msg[SIZE];
     int i = 0;
     while (!serial.available());
@@ -27,6 +27,8 @@ void receive(SoftwareSerial serial, Data *data) {
 	if (isalpha(serial.peek())) break;
 	msg[i++] = serial.read();
     }
-    data->type = type;
-    data->value = strtof(&msg[1], NULL);
+    Data data;
+    data.type = type;
+    data.value = strtof(&msg[1], NULL);
+    return data;
 }
