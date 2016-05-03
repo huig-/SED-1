@@ -20,13 +20,17 @@ void Comm::send(SoftwareSerial serial, float data, data_type type) {
 Data Comm::receive(SoftwareSerial serial) {
     char msg[SIZE];
     int i = 0;
+    Serial.println("Esperando a recibir");
     while (!serial.available());
     char type = serial.read(); i++;
+    Serial.println("Recibido 1char, esperando mas");
     while (!serial.available());
+    Serial.println("Leyendo..");
     while (serial.available() && i < SIZE) {
 	if (isalpha(serial.peek())) break;
 	msg[i++] = serial.read();
     }
+    Serial.println("Datos leidos");
     Data data;
     if (type == pHUM) data.type = HUM;
     else if (type == pTEMP) data.type = TEMP;

@@ -6,6 +6,7 @@
 #include <SoftwareSerial.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "Arduino.h"
 
 #define pLIGHT 'l'
 #define pTEMP 't'
