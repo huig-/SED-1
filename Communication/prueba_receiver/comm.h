@@ -1,10 +1,11 @@
 #ifndef COMM_H
 #define COMM_H
+#endif
 
 #include <stdio.h>
-#include <SotwareSerial.h>
+#include <SoftwareSerial.h>
 #include <ctype.h>
-#include <cstdlib.h>
+#include <stdlib.h>
 
 #define pLIGHT 'l'
 #define pTEMP 't'
