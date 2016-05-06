@@ -1,11 +1,25 @@
 #include "Comm.h"
+<<<<<<< HEAD
 SoftwareSerial serial1(10,11);
 //Comm comm;
 char str[200];
+=======
+
+#define rxPIN 10
+#define txPIN 11
+SoftwareSerial serial1(rxPIN, txPIN);
+Comm comm;
+
+>>>>>>> e8fa40f4a57e0bcb5aaf4bdabab5d6c86d495bf6
 void setup() {
   // put your setup code here, to run once:
+  pinMode(rxPIN, INPUT);
+  pinMode(txPIN, OUTPUT);
   Serial.begin(9600);
+<<<<<<< HEAD
   while(!serial1){;}
+=======
+>>>>>>> e8fa40f4a57e0bcb5aaf4bdabab5d6c86d495bf6
   serial1.begin(9600);
 }
 

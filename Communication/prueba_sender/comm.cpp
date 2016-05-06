@@ -1,20 +1,20 @@
 #include "comm.h"
 
 void Comm::send(SoftwareSerial serial, float data, data_type type) {
-    char msg[SIZE];
+    char header;
     switch (type) {
 	case LIGHT:
-	    msg[0] = pLIGHT;
+	    header = pLIGHT;
 	    break;
 	case TEMP:
-	    msg[0] = pTEMP;
+	    header = pTEMP;
 	    break;
 	case HUM:
-	    msg[0] = pHUM;
+	    header = pHUM;
 	    break;
     }
-    sprintf(&msg[1], "%f", data);
-    serial.print(msg);
+    serial.print(header);
+    serial.print(data);
 }
 
 Data Comm::receive(SoftwareSerial serial) {
