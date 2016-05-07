@@ -16,22 +16,25 @@ Connection:
 
 #include <Wire.h>
 #include <BH1750.h>
+#include "comm.h"
 
+#define rxPIN 0
+#define txPIN 1
 
 BH1750 lightMeter;
-
+SoftwareSerial serial(rxPIN, txPIN);
+Comm comm;
 
 void setup(){
-  Serial.begin(9600);
+  while (!serial);
+  serial.begin(9600);
   lightMeter.begin();
-  Serial.println("Running...");
+  delay(5000); //wait for STM32 to be running
 }
 
 
 void loop() {
   uint16_t lux = lightMeter.readLightLevel();
-  Serial.print("Light: ");
-  Serial.print(lux);
-  Serial.println(" lx");
-  delay(1000);
+  comm.send(serial, lux, LIGHT); 
+  delay(5000); //for synchronizing
 }
