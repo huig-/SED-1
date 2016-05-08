@@ -1,0 +1,3 @@
+[submodule "p1_stm32/stm32fxxx_hal_libraries"]
+	path = p1_stm32/stm32fxxx_hal_libraries
+	url = https://github.com/MaJerle/stm32fxxx_hal_libraries.git
