@@ -38,9 +38,12 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "stm32f4xx_hal_uart.h"
 
-#define MAX_STRLEN 50
-volatile char received_string[MAX_STRLEN+1];
+#define MAX_STRLEN 100
+uint8_t rxString[MAX_STRLEN];
+uint8_t rxBuffer = '\000';
+int rxindex = 0;
 
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -91,7 +94,8 @@ int main(void)
   //SystemClock_Config();//REMOVE SYSTEMCLOCK_CONFIG !!!!
   
   /* Configure EXTI Line0 (connected to PA0 pin) in interrupt mode */
-  EXTILine0_Config();
+ // EXTILine0_Config();
+  init_USART1(9600);
   
   /* Infinite loop */
   while (1)
@@ -233,96 +237,103 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 #endif
 
-void init_USART1(uint32_t baudrate) {
-	/* This is a concept that has to do with the libraries provided by ST
-		 * to make development easier the have made up something similar to
-		 * classes, called TypeDefs, which actually just define the common
-		 * parameters that every peripheral needs to work correctly
-		 *
-		 * They make our life easier because we don't have to mess around with
-		 * the low level stuff of setting bits in the correct registers
-		 */
-		GPIO_InitTypeDef GPIO_InitStruct; // this is for the GPIO pins used as TX and RX
-		USART_InitTypeDef USART_InitStruct; // this is for the USART1 initilization
-		NVIC_InitTypeDef NVIC_InitStructure; // this is used to configure the NVIC (nested vector interrupt controller)
+void init_USART1(uint32_t baudrate)
+{
+		//IO
+		__GPIOB_CLK_ENABLE();
+		__USART1_CLK_ENABLE();
+		__DMA2_CLK_ENABLE();
 
-		/* enable APB2 peripheral clock for USART1
-		 * note that only USART1 and USART6 are connected to APB2
-		 * the other USARTs are connected to APB1
-		 */
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+		GPIO_InitTypeDef GPIO_InitStruct;
 
-		/* enable the peripheral clock for the pins used by
-		 * USART1, PB6 for TX and PB7 for RX
-		 */
-		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+		GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+		GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-		/* This sequence sets up the TX and RX pins
-		 * so they work correctly with the USART1 peripheral
-		 */
-		GPIO_InitStruct.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7; // Pins 6 (TX) and 7 (RX) are used
-		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF; 			// the pins are configured as alternate function so the USART peripheral has access to them
-		GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;		// this defines the IO speed and has nothing to do with the baudrate!
-		GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;			// this defines the output type as push pull mode (as opposed to open drain)
-		GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;			// this activates the pullup resistors on the IO pins
-		GPIO_Init(GPIOB, &GPIO_InitStruct);					// now all the values are passed to the GPIO_Init() function which sets the GPIO registers
+		//UART
 
-		/* The RX and TX pins are now connected to their AF
-		 * so that the USART1 can take over control of the
-		 * pins
-		 */
-		GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_USART1); //
-		GPIO_PinAFConfig(GPIOB, GPIO_PinSource7, GPIO_AF_USART1);
+		UART_HandleTypeDef huart1;
 
-		/* Now the USART_InitStruct is used to define the
-		 * properties of USART1
-		 */
-		USART_InitStruct.USART_BaudRate = baudrate;				// the baudrate is set to the value we passed into this init function
-		USART_InitStruct.USART_WordLength = USART_WordLength_8b;// we want the data frame size to be 8 bits (standard)
-		USART_InitStruct.USART_StopBits = USART_StopBits_1;		// we want 1 stop bit (standard)
-		USART_InitStruct.USART_Parity = USART_Parity_No;		// we don't want a parity bit (standard)
-		USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None; // we don't want flow control (standard)
-		USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx; // we want to enable the transmitter and the receiver
-		USART_Init(USART1, &USART_InitStruct);					// again all the properties are passed to the USART_Init function which takes care of all the bit setting
+		huart1.Instance = USART1;
+		huart1.Init.BaudRate = baudrate;
+		huart1.Init.WordLength = UART_WORDLENGTH_8B;
+		huart1.Init.StopBits = UART_STOPBITS_1;
+		huart1.Init.Parity = UART_PARITY_NONE;
+		huart1.Init.Mode = UART_MODE_TX_RX;
+		huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+		huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+		HAL_UART_Init(&huart1);
 
+		//http://stackoverflow.com/questions/24875873/stm32f4-uart-hal-driver
+		//DMA
+		DMA_HandleTypeDef hdma_usart1_rx;
+		hdma_usart1_rx.Instance = DMA2_Stream2;
+		hdma_usart1_rx.Init.Channel = DMA_CHANNEL_4;
+		hdma_usart1_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+		hdma_usart1_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+		hdma_usart1_rx.Init.MemInc = DMA_MINC_DISABLE;
+		hdma_usart1_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+		hdma_usart1_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+		hdma_usart1_rx.Init.Mode = DMA_CIRCULAR;
+		hdma_usart1_rx.Init.Priority = DMA_PRIORITY_LOW;
+		hdma_usart1_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+		//HAL_DMA_Init(&hdma_usart1_rx);
 
-		/* Here the USART1 receive interrupt is enabled
-		 * and the interrupt controller is configured
-		 * to jump to the USART1_IRQHandler() function
-		 * if the USART1 receive interrupt occurs
-		 */
-		USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); // enable the USART1 receive interrupt
+		__HAL_LINKDMA(&huart1, hdmarx, hdma_usart1_rx);
 
-		NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;		 // we want to configure the USART1 interrupts
-		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;// this sets the priority group of the USART1 interrupts
-		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;		 // this sets the subpriority inside the group
-		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			 // the USART1 interrupts are globally enabled
-		NVIC_Init(&NVIC_InitStructure);							 // the properties are passed to the NVIC_Init function which takes care of the low level stuff
+		HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 6, 0);
+		HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
 
-		// finally this enables the complete USART1 peripheral
-		USART_Cmd(USART1, ENABLE);
-	}
+		//set DMA interrupt
+		HAL_NVIC_ClearPendingIRQ(DMA2_Stream2_IRQn);
+		//HAL_DMA_IRQHandler(&hdma_usart1_rx);
+
+		//start dma
+		__HAL_UART_FLUSH_DRREGISTER(&huart1);
+		//HAL_UART_Receive_DMA(huart1, &rxBuffer, 1);
 }
 
 void USART1_IRQHandler(void) {
 	// check if the USART1 receive interrupt flag was set
-		if( USART_GetITStatus(USART1, USART_IT_RXNE) ){
+}
 
-			static uint8_t cnt = 0; // this counter is used to determine the string length
-			char t = USART1->DR; // the character from the USART1 data register is saved in t
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	__HAL_UART_FLUSH_DRREGISTER(huart); // Clear the buffer to prevent overrun
 
-			/* check if the received character is not the LF character (used to determine end of string)
-			 * or the if the maximum string length has been been reached
-			 */
-			if( (t != '\n') && (cnt < MAX_STRLEN) ){
-				received_string[cnt] = t;
-				cnt++;
-			}
-			else{ // otherwise reset the character counter and print the received string
-				cnt = 0;
-				USART_puts(USART1, received_string);
-			}
-		}
+	    int i = 0;
+
+	        print(&rxBuffer); // Echo the character that caused this callback so the user can see what they are typing
+
+	        if (rxBuffer == 8 || rxBuffer == 127) // If Backspace or del
+	        {
+	            print(" \b"); // "\b space \b" clears the terminal character. Remember we just echoced a \b so don't need another one here, just space and \b
+	            rxindex--;
+	            if (rxindex < 0) rxindex = 0;
+	        }
+
+	        else if (rxBuffer == '\n' || rxBuffer == '\r') // If Enter
+	        {
+	            executeSerialCommand(rxString);
+	            rxString[rxindex] = 0;
+	            rxindex = 0;
+	            for (i = 0; i < MAX_STRLEN; i++) rxString[i] = 0; // Clear the string buffer
+	        }
+
+	        else
+	        {
+	            rxString[rxindex] = rxBuffer; // Add that character to the string
+	            rxindex++;
+	            if (rxindex > MAX_STRLEN) // User typing too much, we can't have commands that big
+	            {
+	                rxindex = 0;
+	                for (i = 0; i < MAX_STRLEN; i++) rxString[i] = 0; // Clear the string buffer
+	                print("\r\nConsole> ");
+	            }
+	        }
 }
 
 

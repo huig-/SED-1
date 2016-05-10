@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.520723443/PATH/delimiter=\:
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.520723443/PATH/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.520723443/PATH/value=/usr/local/bin/bin\:/usr/bin\:/bin\:/usr/sbin\:/sbin\:/usr/local/bin
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.520723443/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.520723443/appendContributed=true

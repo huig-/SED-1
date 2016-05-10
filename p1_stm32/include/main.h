@@ -42,7 +42,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "stm32f429i_discovery.h"
-#include <stm32f4xx_usart.h>
+#include "stm32f4xx_hal_usart.h"
+#include "stm32f4xx_hal_uart.h"
+#include "misc.h"
+#include "stm32f4xx_hal_dma.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
