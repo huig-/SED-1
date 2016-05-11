@@ -1,10 +1,53 @@
-\section{Arquitectura Utilizada}\label{sec:arquitectura}
+\section{Componentes Utilizados}\label{sec:arquitectura}
 
-Para este proyecto se han seleccionado dos placas Arduinos UNO y una
-Discovery ...[Modelo de la placa] así como un sensor fotovoltaico
-BH1750 GY-302, y un sensor de temperatura y humedad DHT22.
+Como se ha expuesto en la Secci\'on \ref{sec:intro}, el objetivo del
+proyecto de la asignatura es realizar un sistema de medici\'on de
+temperatura, humedad y luz a trav\'es de dos placas Arduino Uno. Los
+datos recogidos por cada una de las placas ser\'an enviados al tercer
+componente del proyecto, una placa Discovery STM32F429, la cual se
+encargar\'a de procesarlos y mostrar los datos recibidos por su
+pantalla.
 
-\subsection{M\'odulo BH1750}
+El sensor de humedad y temperatura utilizado es el modelo DHT22 y
+estar\'a conectado al primer Arduino a trav\'es de una placa de
+prototipado. Este Arduino se encargar\'a de recibir tanto los datos de
+la humedad y la temperatura, procesarlos como se explica en la
+Secci\'on~\ref{subsec:dht22} y enviarselos a la Discovery utilizando
+un protocolo de comunicaci\'on(Secci\'on~\ref{sec:comunicacion}) desarrollado por el grupo.
+
+El sensor fotovoltaico utilizado es el modelo BH1750 y estar\'a
+conectado al segundo Arduino a trav\'es de otra placa de
+prototipado. Este se encargar\'a de mendir la luz existente en el
+ambiente y se la enviar\'a a la Discovery. %Adem\'as tambi\'en
+                                %contar\'a con diversos leds los
+                                %cuales regular\'an su intensidad en
+                                %funci\'on de la cantidad de luz que
+                                %ha sido captada.
+
+Finalmente la placa Discovery recibir\'a los datos enviados por los
+Arduinos a trav\'es de dos de sus UART y utilizando el protocolo de
+comunicaci\'on desarrollado, los procesar\'a y mostrar\'a el resultado
+a trav\'es de su pantalla LCD.
+
+
+\fixme{Pablo: Introducir aqui la maquina de estados o la red de Petri...} 
+La m\'aquina de estados que sigue el sistema se muestra a
+continuaci\'on. En ella se describe el comportamiento explicado
+anteriormente...
+
+Todo el c\'odigo utilizado para el desarrollo del proyecto puede
+encontrarse en \url{https://github.com/tutugordillo/SED}.
+% Para este proyecto se han seleccionado dos placas Arduinos UNO y una
+% placa 
+% Discovery STM32F429 así como un sensor fotovoltaico
+% BH1750 GY-302, y un sensor de temperatura y humedad DHT22. Las
+% conexiones entre los sensores y los Arduinos se han llevado a cabo
+% utilizando placas de prototipado.
+\subsection{Arduino UNO}\label{subsec:arduino}
+
+\subsection{Discovery STM32F429}\label{subsec:discovery}
+
+\subsection{M\'odulo BH1750}\label{subsec:bh1750}
 El componente BH1750 GY-302 es un sensor fotovoltaico que permite
 llevar a cabo mediciones digitales de la intensidad de luz
 ambiental. Se trata de una versi\'on mejorada de los sensores
@@ -18,7 +61,7 @@ llevar a cabo en dos modos: \emph{modo medici\'on una vez} y \emph{modo
   medici\'on continua}. Adem\'as existen distintas resoluciones (1lx,
 0.5lx, 4lx) con
 las que llevar a cabo las mediciones y de esta manera ajustar la
-precisi\'on de estas. As\'i el m\'odulo es capaz de detectar un
+precisi\'on con la que se lleva a cabo la medici\'on. As\'i el m\'odulo es capaz de detectar un
 m\'inimo de 0.11 lx y un m\'aximo de 100000 lx. 
 
 De la combinaci\'on del modo de medici\'on y la resoluci\'no se
@@ -44,7 +87,7 @@ con dos direcciones:
   se llevar\'a a cabo mediante la direcci\'on 0x23.
 \end{itemize}
 
-\subsection{M\'odulo DTH22}
+\subsection{M\'odulo DTH22}\label{subsec:dht22}
 
 El m\'odulo DTH22 es un sensor de humedad y temperatura
 digital. Normalmente el sensor cuenta con 4 pines, uno para la

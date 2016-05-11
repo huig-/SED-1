@@ -1,7 +1,7 @@
 \section{Conexiones}\label{sec:conexiones}
 
-En esta secci\'on se muestran los modelos de las conexiones llevadas a
-cabo de forma gr\'afica.
+En esta secci\'on se muestra la interconexi\'on f\'isica entre los
+distintos componentes utilizada en el proyecto.
 
 \subsection{Modelo humedad-temperatura}
 \begin{center}
@@ -10,6 +10,18 @@ cabo de forma gr\'afica.
 \caption{Conex\'on entre el sensor DHT22 y ArduinoUNO}
 \end{figure}
 \end{center}
+En la Figura~\ref{fig:dht22} se muestra las conexi\'on f\'isica entre
+el ArduinoUno y el sensor de humedad y temperatura DHT22.
+Las mediciones llevadas a cabo por el sensor son digitales, raz\'on
+por la que se ha utilizado el pin 2 de la placa Arduino, que es
+conectado al pin de datos del sensor a trav\'es del cable amarillo.
+
+Los cables azul y verde unen el sensor a tierra y a alimentaci\'on
+respectivamente.
+El pin 3 del sensor (comenzando por la izquierda) no se utiliza como
+se explic\'on en la Secci\'on~\ref{subsec:dht22}.
+
+
 \subsection{Modelo fotovoltaico}
 \begin{center}
 \begin{figure}[h]\label{fig:bh1750}
