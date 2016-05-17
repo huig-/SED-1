@@ -24,7 +24,7 @@ se explic\'o en la Secci\'on~\ref{subsec:dht22}.
 
 \subsection{Modelo fotovoltaico}
 La conexi\'on f\'isica entre el modelo foltovoltaico y el Arduino Uno
-puede ser observado en la figura \ref{fig:bh1750}. Los cables azul y
+puede ser observado en la Figura~\ref{fig:bh1750}. Los cables azul y
 negro unen el sensor a tierra y a alimentaci\'on, respectivamente.
 Al igual que en el modelo anterior, las mediciones de luminosidad son
 realizadas de manera digital, por tanto, SDA y SCL est\'an unidos a los puertos A4 y A5, respectivamente.
@@ -37,3 +37,12 @@ realizadas de manera digital, por tanto, SDA y SCL est\'an unidos a los puertos 
 \end{figure}
 \end{center}
 \subsection{Modelo Intercomunicaci\'on}\label{sec:mod-intercom}
+Debido a la incompatibilidad del software utilizado para la
+realizaci\'on de los diagramas y la placa STM32F429I-Discovery no se
+ha podido representar de forma gr\'afica la interconexi\'on de las dos
+placas Arduino UNO con esta. A\'un as\'i esta conexi\'on ser\'ia
+an\'aloga a la que se puede observar en las Figuras~\ref{fig:bh1750} y
+\ref{fig:dht22}. De cada uno de ellos existir\'ian dos cables entre
+los pines 0 y 1 (Tx y Rx) de cada arduino a los pines A5 A6 y B5 B6 de
+la Discovery respectivamente entre los que se llevar\'a la
+comunicaci\'on a trav\'es de sus  UARTS.
