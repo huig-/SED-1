@@ -12,12 +12,12 @@ El sensor de humedad y temperatura utilizado es el modelo DHT22 y
 estar\'a conectado al primer Arduino a trav\'es de una placa de
 prototipado. Este Arduino se encargar\'a de recibir tanto los datos de
 la humedad y la temperatura, procesarlos como se explica en la
-Secci\'on~\ref{subsec:dht22} y enviarselos a la Discovery utilizando
+Secci\'on~\ref{subsec:dht22} y envi\'arselos a la Discovery utilizando
 un protocolo de comunicaci\'on(Secci\'on~\ref{sec:comunicacion}) desarrollado por el grupo.
 
 El sensor fotovoltaico utilizado es el modelo BH1750 y estar\'a
 conectado al segundo Arduino a trav\'es de otra placa de
-prototipado. Este se encargar\'a de mendir la luz existente en el
+prototipado. Este se encargar\'a de medir la luz existente en el
 ambiente y se la enviar\'a a la Discovery. %Adem\'as tambi\'en
                                 %contar\'a con diversos leds los
                                 %cuales regular\'an su intensidad en
@@ -25,7 +25,7 @@ ambiente y se la enviar\'a a la Discovery. %Adem\'as tambi\'en
                                 %ha sido captada.
 
 Finalmente la placa Discovery recibir\'a los datos enviados por los
-Arduinos a trav\'es de dos de sus UART y utilizando el protocolo de
+Arduinos a trav\'es de dos de sus UARTs y utilizando el protocolo de
 comunicaci\'on desarrollado, los procesar\'a y mostrar\'a el resultado
 a trav\'es de su pantalla LCD.
 
@@ -77,7 +77,7 @@ obtienen 6 modos de ejecuci\'on:
 
 Los modos High(H) trabajan con resoluciones de 1 lx y 0.5 lx 
 
-La comunicaci\'on se lleva a cabo a través de I2C. En funci\'on de
+La comunicaci\'on se lleva a cabo a trav\'es de I2C. En funci\'on de
 como se encuentre conectado el pin ADDR del m\'odulo se puede trabajar
 con dos direcciones:
 \begin{itemize}
@@ -123,7 +123,5 @@ cuya longitud el bit transmitido ser\'a un 1 o un 0:
 Para conocer el n\'umero de ciclos transmitidos se hace de forma relativa, es decir,
 se mide el n\'umero de ciclos propios de LOW y se compara este valor con
 el n\'umero de ciclos de HIGH, de esta forma se puede saber si se ha trasmitido
-un 1 o un 0. Adem'as, durante este c'alculo se desactivan todas las interrupciones
-para que no var'ien el valor final con ciclos que interfieren en la medici\'on.
-
-Descripción de las placas y los sensores
+un 1 o un 0. Adem\'as, durante este c\'alculo se desactivan todas las interrupciones
+para que no var\'ien el valor final con ciclos que interfieren en la medici\'on.
