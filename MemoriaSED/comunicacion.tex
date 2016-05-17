@@ -10,7 +10,7 @@ secci\'on \ref{sec:mod-intercom}.
 
 Para facilitar el proceso de comunicaci\'on se ha definido una
 estructura de datos que contiene el tipo de datos que se env\'ia (luz,
-temperatatura o humedad) y su valor num\'erico asociado. Adem\'as,
+temperatatura o humedad) y su valor num\'erico asociado. De esta forma, el primer byte que se env\'ia indica el tipo de dato, y a continuaci\'on viene el valor num\'erico que es un float puesto que es el tipo m\'as peque\~no que contiene cualquiera de los tres tipos de datos. Adem\'as,
 tambi\'en han sido implementadas las funciones de env\'io y
 recepci\'on de datos a trav\'es de un puerto serie implementado en la
 librer\'ia SoftwareSerial.
