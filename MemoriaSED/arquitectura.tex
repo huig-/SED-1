@@ -18,17 +18,19 @@ un protocolo de comunicaci\'on(Secci\'on~\ref{sec:comunicacion}) desarrollado po
 El sensor fotovoltaico utilizado es el modelo BH1750 y estar\'a
 conectado al segundo Arduino a trav\'es de otra placa de
 prototipado. Este se encargar\'a de mendir la luz existente en el
-ambiente y se la enviar\'a a la Discovery. %Adem\'as tambi\'en
-                                %contar\'a con diversos leds los
-                                %cuales regular\'an su intensidad en
-                                %funci\'on de la cantidad de luz que
-                                %ha sido captada.
+ambiente y se la enviar\'a a la Discovery.
 
 Finalmente la placa Discovery recibir\'a los datos enviados por los
 Arduinos a trav\'es de dos de sus UART y utilizando el protocolo de
 comunicaci\'on desarrollado, los procesar\'a y mostrar\'a el resultado
 a trav\'es de su pantalla LCD.
 
+As\'i mismo se utilizar\'an un conjunto de leds para implementar un
+sencillo c\'odigo visual que depende de ciertos parametros de
+estabilidad que se definan y permitan comprobar de forma gr\'afica el
+estado del sistema completo. Este estado de estabilidad depender\'a de
+la cantidad de luz y la temperatura ya que el grado de luz que incida
+sobre el sistema puede causar el sobrecalentamiento del mismo.
 
 \fixme{Pablo: Introducir aqui la maquina de estados o la red de Petri...} 
 La m\'aquina de estados que sigue el sistema se muestra a
@@ -44,8 +46,37 @@ encontrarse en \url{https://github.com/tutugordillo/SED}.
 % conexiones entre los sensores y los Arduinos se han llevado a cabo
 % utilizando placas de prototipado.
 \subsection{Arduino UNO}\label{subsec:arduino}
+Arduino Uno es una placa con un microcontrolador basado en el
+Atmega328 de la marca Atmel. Es desarrollado por la empresa de
+hardware libre Arduino.
 
-\subsection{Discovery STM32F429}\label{subsec:discovery}
+ Posee 14 pines de entrada/salida digitales (6 de los cuales
+pueden usarse como salidas PWM) y 6 pines anal\'ogicos. Estos pines
+permiten la conexi\'on con cualquier otro dispositivo que sea capaz de
+transimitir o recibir señales entre 0 y 5V. Adem\'as algunos de los
+mismos poseen funciones especificas. Entre ellos podemos destacar 
+los pines digitales 0 y 1 (Rx y Tx) que son utilizados para la transmisi\'on de
+señales TTL a trav\'es de su UART. As\'i mismo los pines 10, 11, 12 y
+13 pueden set utilizador para llevar a cabo comunicaciones SPI.
+
+Esta placa es de las m\'as b\'asicas e ideal para comenzar a trabajar
+en una primera aproximaci\'on con los SEDS. Es muy utilizada para
+realizar el prototipado de sistemas m\'as complejos.
+
+\subsection{Discovery STM32F429I}\label{subsec:discovery}
+
+La placa STM32F429I-Discovery se trata, al igual que en el caso
+anterior de una placa de prototipado con un microcontrolador
+Cortex-M4. Es desarrollada por la empresa STMicroelectronics. 
+
+En este
+caso cuenta con mayor n\'umero de pines comparado con el Arduino
+Uno. Posee hasta 21 interfaces de comunicaci\'on entre las que podemos
+destacar 4 UARTS y 4 USARTS o 3 interfaces $I²C$ o 6 interfaces SPI
+(por las 4 de Arduino UNO). As\'i mismo cuenta
+con una pantala LCD-TFT de 2.3 pulgadas y la posibilidad de trabajar
+hasta con 17 timers diferentes. Al igual que en el caso anterior
+presenta la posibilidad de trabajar con PWM.
 
 \subsection{M\'odulo BH1750}\label{subsec:bh1750}
 El componente BH1750 GY-302 es un sensor fotovoltaico que permite
@@ -123,7 +154,16 @@ cuya longitud el bit transmitido ser\'a un 1 o un 0:
 Para conocer el n\'umero de ciclos transmitidos se hace de forma relativa, es decir,
 se mide el n\'umero de ciclos propios de LOW y se compara este valor con
 el n\'umero de ciclos de HIGH, de esta forma se puede saber si se ha trasmitido
-un 1 o un 0. Adem'as, durante este c'alculo se desactivan todas las interrupciones
-para que no var'ien el valor final con ciclos que interfieren en la medici\'on.
+un 1 o un 0. Adem\'as, durante este c\'alculo se desactivan todas las interrupciones
+para que no var\'ien el valor final con ciclos que interfieren en la medici\'on.
 
-Descripción de las placas y los sensores
+\subsection{Leds}\label{subsec:leds}
+
+Los leds utilizados son leds usuales los cuales han de ser conectados
+junto a resistencias de 220 ohmios para evitar causar daño a las placas a las que
+se conecta y asegurar su correcto funcionamiento. Se puede utilizar mediante el env\'io de corriente a
+trav\'es de los pines de salida digitales de la placa, provocando que
+el led se encienda o se apague. As\'i mismo tambi\'en pueden ser
+utilizados a trav\'es de los pines que permitan hacer uso de la
+modulaci\'on por ancho de pulso (PWM) consiguiendo de esta forma
+controlar la intensidad con la que el led emite luz. 

@@ -1,14 +1,35 @@
-\chapter{Implementaci\'on}\label{sec:imp}
+\section{Implementaci\'on}\label{sec:imp}
 En esta secci\'on se presentan los detalles de la implementaci\'on
 llevada a cabo as\'i como determinadas decisiones que se han tomado
 exponiendo la raz\'on de las mismas.
 
+Para la implementaci\'on del c\'odigo de los dos Arduinos se ha
+utilizado el entorno de desarrollo propio del mismo (Arduino IDE)
+mientras que para la programaci\'on de la placa STM32F429I-Discovery
+se ha utilizado Eclipse como entorno de desarrollo.
+
 El primer arduino se encargar\'a de medir tanto la temperatura como la
 humedad. Para la comunicaci\'on se ha utilizado la librer\'ia
-SerialSystem. 
+SerialSystem. En este caso se implementa en C la funcionalidad
+explicada en la Secci\'on~\ref{subsec:dht22}. Se pueden distinguir
+tres archivos distintos, uno con extensi\'on .c con su correspondiente .h donde se
+encuentra implementada toda la funcionalidad del sensor y un archivo
+con extensi\'on .ino en el que se inicializa el sensor y dentro del
+m\'etodo loop se llevan a cabo de forma continua las mediciones tanto
+de temperatua como de humedad. Tras las mediciones se utiliza la
+librer\'ia SerialSoftware para llevar a cabo el env\'io de los datos a
+otro dispositivo a trav\'es de su UART.
 
-Sensor de temperatura y humedad
-Sensor fotovoltaico
+El segundo arduino se encargar\'a de la medici\'on fotovoltaica. Al
+igual que en el caso anterior se pueden distinguir tres ficheros. Dos
+con las extensiones .c y .h respectivamente y uno con la extensi\'on
+.ino. En este caso el archivo .c solo tiene 4 m\'etodos. Un m\'etodo
+begin donde se inicializa el dispositivo, un m\'etodo configure donde
+se configura con uno de los modos explicados anteriormente en la
+Secci\'on~\ref{subsec:bh1750} y dos m\'etodos read y write que
+implementan la comunicaci\'on a trav\'es de la interfaz $I²C$ con el
+sensor. El m\'etodo read implementa la funcionalidad descrita en la
+Secci\'on~\ref{subsec:bh1750}. 
 
 Finalmente los detalles de implementaci\'on sobre la placa
 STM32F429I-Discovery est\'an relacionados con la comunicaci\'on de la
@@ -23,7 +44,7 @@ llevar a cabo los objetivos marcados. Para implementar la
 comunicaci\'on se ha utilizado el protocolo descrito en la
 Secci\'on~\ref{sec:comunicacion}. Para el funcionamiento de las dos
 UARTS escogidas (una por Arduino) se ha utilizado la librer\'ia de UARTS
-de sSTM. En primer lugar se lleva a cabo la inicializaci\'on de las
+de STM. En primer lugar se lleva a cabo la inicializaci\'on de las
 mismas en las que se especifican los atributos de la comunicaci\'on
 como son el ancho de banda (9600 baudios en nuestro caso), la paridad
 o el n\'umero de bits de finalizaci\'on. Posteriormente comienza un
@@ -36,7 +57,7 @@ un middleware de STM que nos permite controlar distintos perif\'ericos
 de la placa. Lo que hace BSP es mejorar la legibilidad y mejorar la
 interacci\'on entre el programador y las librerias que manejan los
 drivers de los distintos perif\'ericos. Si inspeccionamos el co\'digo
-existente en BSP referente a la pantalla LCD (...) se puede observar
+existente en BSP referente a la pantalla LCD se puede observar
 que utiliza directivas existentes en la librer\'ia de
 STM para la pantalla LCD e implementa nuevas directivas que facilitan
 la programaci\'on de la pantalla LCD permitiendo por ejemplo mostrar
@@ -44,7 +65,7 @@ un String llamando directamente a una directiva a la que hay que
 especificarle el n\'umero de l\'inea en la que se quiere que se pinte
 y el String. Esta directiva internamente lo que hace es enviar a la
 LCD caracter por caracter el String especificado utilizando directivas
-de la librer\'ia stm32f4xx_hal_ltdc calculando de manera autom\'atica la posici\'on en la
+de la librer\'ia stm32f4xx\_hal\_ltdc calculando de manera autom\'atica la posici\'on en la
 que se dibuja cada caracter.
 
 El controlador de la pantalla LCD soporta 2 contenedores como m\'aximo
@@ -57,6 +78,5 @@ matriz representa un bit y lo que hacen las funciones de BSP es
 escribir cada pixel del color indicado con la finalidad de acabar
 formando los caracteres espec\'ificos.
 
-La implementaci\'on y c\'odigo del proyecto se encuentra disponible en
-\url{https://github.com/tutugordillo/SED} dentro del directorio
+La implementaci\'on y c\'odigo del proyecto se encuentra disponible en~\url{https://github.com/tutugordillo/SED} dentro del directorio
 \emph{Proyecto Final}.  
