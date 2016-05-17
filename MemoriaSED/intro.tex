@@ -7,58 +7,77 @@
 \pagestyle{headings}
 
 
-Actualmente cada vez es m\'as com\'un escuchar el t\'ermino
+Hoy en día, cada vez es m\'as com\'un escuchar el t\'ermino
 \emph{smart} en nuestra vida cotidiana. Nos estamos dirigiendo a un
-mundo cada vez m\'as automatizado y en continua interacci\'on con la
+mundo m\'as automatizado y en continua interacci\'on con la
 tecnolog\'ia. Este t\'ermino se aplica en distintas \'areas como por
 ejemplo la
 dom\'otica, los sistemas m\'oviles, e incluso el diseño. El objetivo
-asociado al concepto \emph{samrt} es automatizar distintas acciones
-que antes eran llevadas a cabo por el ser humano. Entre ellas podemos destacar
+asociado al concepto \emph{smart} es automatizar distintas acciones
+que antes eran llevadas a cabo por el ser humano. 
+
+Las \emph{smart homes} son viviendas automatizadas que aportan
+servicios de gesti\'on energ\'etica, seguridad, bienestar y
+comunicaci\'on. Muchas de estas casas usan sensores de temperatura
+para regular el funcionamiento de la calefacci\'on y de la caldera,
+mediante telefon\'ia m\'ovil, Wi-Fi o Ethernet. Tambi\'en controlan
+los toldos y persianas el\'ectricas, realizando algunas funciones
+repetitivas autom\'aticamente o bien para protegerlos del viento. 
+
+Gracias a este tipo de tecnolog\'ias, tambi\'en se produce un ahorro
+energ\'etico debido a la racionalizaci\'on de cargas el\'ectricas y
+la gesti\'on de tarifas. Adem\'as, se usan sensores de luz y sol para
+regular el uso de las luces de la casa.
+
+Otro de los conceptos de moda relacionados con este t\'ermino es el de
 las \emph{smart cities} o \emph{ciudades inteligentes} con las que se
 pretende automatizar distintos procesos que permitan mejorar la
 calidad de vida en las ciudades y avanzar hacia desarrollos m\'as
 sostenibles apoyados en la innovaci\'on y la tecnolog\'ia. Este
-concepto tiene tambi\'en asociado en muchas ocasiones una
+concepto tiene tambi\'en asociado, en muchas ocasiones, una
 participaci\'on ciudadana activa.
 
 Un ejemplo lo encontramos en la ciudad de Barcelona, considerada
 como una de las principales \emph{smart cities} del mundo. En ella
-podemos encontrar sensonres que miden el ruido del tr\'afico, analizan
+podemos encontrar sensores que miden el ruido del tr\'afico, analizan
 la calidad del aire, controlan el aparcamiento e incluso act\'uan como
 mecanismos de iluminaci\'on inteligente. Adem\'as los peatones
 tambi\'en son detectados gracias a sensores inteligentes a trav\'es de
 los cuales poder observar la actividad y h\'abitos de los mismos e
 identificar las zonas de la ciudad m\'as transitadas.
 
-Adem\'as dentro de Barcelona se puede destacar un proyecto encabezado
+Dentro de Barcelona, tambi\'en se puede destacar un proyecto encabezado
 por el Fab Lab del Instituto de Arquitectura Avanzada de Cataluña,
-mediante el cual se desarrollo un dispositivo capaz de medir los
+que desarrolla un dispositivo capaz de medir los
 niveles de contaminaci\'on y de ruido del entorno. Este dispositivo
 tendr\'ia que ser portado por cualquier habitante de Barcelona y
 permite tambi\'en compartir los datos recogidos en tiempo real.
 
-Por estas razones, y al ser un t\'ermino cada vez m\'as en auge, se ha elegido como proyecto de la asginatura la simulaci\'on
-de una pequeña estaci\'on en la que dos sistemas
-independientes(Arduinos Uno)
-llevar\'an a cabo mediciones de distintos factores \'ambientales a
-trav\'es de los correspondientes sensores
-(temperatura y luminosidad en nuestro caso) y posteriormente estos
-datos ser\'an enviados a un centro(Discovery STM32f249) donde ser\'an
-procesados y se podr\'a visualizar informaci\'on de los mismos.
-
-El proyecto elegido es una simplificaci\'on de posibles usos que se
-les puede dar a estos sensores en las \emph{smart cities} de hoy en
-d\'ia como se ha expuesto anteriormente en el caso de Barcelona. A\'un
-as\'i, existen m\'as ciudades que tienen implantados sistemas que
-siguen una pol\'itica de funcionamineto similar. Otro ejemplo de ello es
-la ciudad de Bilbao en la que existen medidores de $CO_2$ en distintas
+No obstante, existen otras ciudades que tienen implantados sistemas que
+siguen una pol\'itica de funcionamiento similar: Bilbao tiene
+instalados medidores de $CO_2$ en distintas
 zonas de la ciudad. Estos sensores captan los niveles de $CO_2$ en el
 ambiente y posteriormente son enviados a un centro de procesamiento
 donde se almacenan y se llevan a cabo diversos
-calculos. Una vez los datos han sido procesados, estos son utilizados
-por el ayuntamiento para restringir el tr\'afico en diversas zonas de
+c\'alculos. Una vez los datos han sido procesados, estos son utilizados
+por el Ayuntamiento para restringir el tr\'afico en diversas zonas de
 la ciudad o llevar a cabo pol\'iticas medioambientales en las zonas
 m\'as afectadas.
 
+Debido al auge de las \emph{smart cities}, se ha elegido como proyecto de la asignatura la simulaci\'on
+de una pequeña estaci\'on en la que dos sistemas
+independientes (Arduinos Uno)
+llevar\'an a cabo mediciones de distintos factores ambientales a
+trav\'es de diversos sensores y posteriormente estos
+datos ser\'an enviados a un centro de procesamiento de datos
+(Discovery STM32F249) donde ser\'an analizados y mostrar\'a la
+informaci\'on recibida por los Arduinos.
 
+Los sensores seleccionados, por su aplicabilidad tanto en el \'ambito
+de las
+\emph{smart homes} como en el de las \emph{smart cities} son: un sensor de
+temperatura y humedad, con el que se puede obtener f\'acilmente el
+\'indice de calor y un sensor de luz.
+El proyecto elegido es una simplificaci\'on de posibles usos que se
+les puede dar a estos sensores en las \emph{smart cities} de hoy en
+d\'ia como se ha expuesto anteriormente en el caso de Barcelona. 

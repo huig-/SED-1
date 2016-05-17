@@ -64,7 +64,7 @@ las que llevar a cabo las mediciones y de esta manera ajustar la
 precisi\'on con la que se lleva a cabo la medici\'on. As\'i el m\'odulo es capaz de detectar un
 m\'inimo de 0.11 lx y un m\'aximo de 100000 lx. 
 
-De la combinaci\'on del modo de medici\'on y la resoluci\'no se
+De la combinaci\'on del modo de medici\'on y la resoluci\'on se
 obtienen 6 modos de ejecuci\'on:
 \begin{itemize}
 \item Continuosly H-Resolution Mode
@@ -99,13 +99,13 @@ ning\'un otro componente.
 
 Las mediciones se llevan a cabo en conjuntos de 40 bits donde los 16
 primeros hacen referencia a la humedad, los 16 siguientes a la
-temperatura y los 8 \'ultimos como checksum. Todas las mediciones se
+temperatura y los 8 \'ultimos como \emph{checksum}. Todas las mediciones se
 realizan de manera digital. La comunicaci\'on comienza con una se\~nal
 del microcontrolador al sensor indicando que comienza la
 transmisi\'on. Mientras no se reciba esta se\~nal el sensor se encuentra
-en estado de stand-by. Tras recibir la se\~nal de comienzo el sensor
+en estado de \emph{stand-by}. Tras recibir la se\~nal de comienzo el sensor
 responder\'a enviando los 40 bits de datos tras los cuales volver\'a
-al estado de stand-by hasta que reciba una nueva se\~nal de comienzo de
+al estado de \emph{stand-by} hasta que reciba una nueva se\~nal de comienzo de
 la transmisi\'on. El proceso completo de comunicaci\'on se lleva a
 cabo en unos dos segundos. La transmisi\'on de todos los bits por
 parte del sensor al microcontrolador comienza con una se\~nal baja (LOW)
@@ -123,6 +123,7 @@ cuya longitud el bit transmitido ser\'a un 1 o un 0:
 Para conocer el n\'umero de ciclos transmitidos se hace de forma relativa, es decir,
 se mide el n\'umero de ciclos propios de LOW y se compara este valor con
 el n\'umero de ciclos de HIGH, de esta forma se puede saber si se ha trasmitido
-un 1 o un 0.
+un 1 o un 0. Adem'as, durante este c'alculo se desactivan todas las interrupciones
+para que no var'ien el valor final con ciclos que interfieren en la medici\'on.
 
 Descripción de las placas y los sensores

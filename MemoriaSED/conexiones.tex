@@ -19,10 +19,16 @@ conectado al pin de datos del sensor a trav\'es del cable amarillo.
 Los cables azul y verde unen el sensor a tierra y a alimentaci\'on
 respectivamente.
 El pin 3 del sensor (comenzando por la izquierda) no se utiliza como
-se explic\'on en la Secci\'on~\ref{subsec:dht22}.
+se explic\'o en la Secci\'on~\ref{subsec:dht22}.
 
 
 \subsection{Modelo fotovoltaico}
+La conexi\'on f\'isica entre el modelo foltovoltaico y el Arduino Uno
+puede ser observado en la figura \ref{fig:bh1750}. Los cables azul y
+negro unen el sensor a tierra y a alimentaci\'on, respectivamente.
+Al igual que en el modelo anterior, las mediciones de luminosidad son
+realizadas de manera digital, por tanto, SDA y SCL est\'an unidos a los puertos A4 y A5, respectivamente.
+
 \begin{center}
 \begin{figure}[h]\label{fig:bh1750}
 \includegraphics{images/bh1750_bb.png}
@@ -30,4 +36,4 @@ se explic\'on en la Secci\'on~\ref{subsec:dht22}.
 
 \end{figure}
 \end{center}
-\subsection{Modelo Intercomunicaci\'on}
+\subsection{Modelo Intercomunicaci\'on}\label{sec:mod-intercom}

@@ -5,6 +5,12 @@ por los Arduinos para llevar a cabo la transimis\'on de los datos ha
 sido desarrollado por los integrantes del grupo.
 
 La comunicaci\'on se lleva a cabo a trav\'es de las UART de cada uno
-de los tres dispositivos.
+de los tres dispositivos y las conexiones pueden ser encontradas en la
+secci\'on \ref{sec:mod-intercom}.
 
-El protocolo de comunicaci\'o ...
+Para facilitar el proceso de comunicaci\'on se ha definido una
+estructura de datos que contiene el tipo de datos que se env\'ia (luz,
+temperatatura o humedad) y su valor num\'erico asociado. Adem\'as,
+tambi\'en han sido implementadas las funciones de env\'io y
+recepci\'on de datos a trav\'es de un puerto serie implementado en la
+librer\'ia SoftwareSerial.
