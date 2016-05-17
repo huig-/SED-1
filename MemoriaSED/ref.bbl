@@ -1,3 +1,24 @@
-\begin{thebibliography}{10}
+\section{Referencias}
+\begin{itemize}
+\item Datasheet del sensor DHT22.
+[\url{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}]
 
-\end{thebibliography}
+\item Datasheet del sensor
+BH1750. [\url{http://www.alldatasheet.com/datasheet-pdf/pdf/338083/ROHM/BH1750FVI.html}]
+
+\item Informaci\'on de la librer\'ia
+SoftwareSerial.[\url{https://www.arduino.cc/en/Reference/SoftwareSerial}]
+
+\item Getting started with the STM32F429 Discovery
+kit. [\url{http://www.st.com/resource/en/user_manual/dm00107720.pdf}]
+
+\item Description of STM32F4xx HAL
+drivers. [\url{http://www.st.com/resource/en/user_manual/dm00105879.pdf}]
+
+\item Librer\'ia de USART para
+Discovery. [\url{http://stm32f4-discovery.com/2014/04/library-04-connect-stm32f429-discovery-to-computer-with-usart/}]
+
+\item Librer\'ia para el display de la
+Discovery. [\url{http://www.pierpaolobagnasco.com/2014/07/13/stm32f429-discovery-display/}]
+
+\end{itemize}
