@@ -1,0 +1,59 @@
+digraph exec_info {
+	      color=black;
+	      node [style=filled,color=black];
+
+subgraph cluster_0 {
+	      label="ArduinoUno_2";
+	      level=1      
+e_1_1  [id="node_0" label="S2" style=filled,color=limegreen];
+e_1_2  [id="node_0" label="S3" style=filled,color=limegreen];
+e_1_3  [id="node_0" label="S4" style=filled,color=limegreen];
+e_1_1 -> e_1_2 [label="datosRecibidos" ];
+e_1_2 -> e_1_3 [label="datosProcesados" ];
+e_1_3 -> e_1_1;
+}
+subgraph cluster_1 {
+	      label="ArduinoUno_1";
+	      level=1
+e_2_1  [id="node_0" label="S2" style=filled,color=limegreen];
+e_2_2  [id="node_0" label="S3" style=filled,color=limegreen];
+e_2_3  [id="node_0" label="S4" style=filled,color=limegreen];
+e_2_1 -> e_2_2 [label="datosRecibidos" ];
+e_2_2 -> e_2_3 [label="datosProcesados" ];
+e_2_3 -> e_2_1;
+}
+
+subgraph cluster_2 {
+	      label="Discovery";
+	      level=2
+e_3_1  [id="node_0" label="S5" style=filled,color=limegreen];
+e_3_2  [id="node_0" label="S6" style=filled,color=limegreen];
+e_3_3  [id="node_0" label="S7" style=filled,color=limegreen];
+e_3_1 -> e_3_2 [label="datosRecibidos" ];
+e_3_2 -> e_3_3 [label="datosProcesados" ];
+e_3_3 -> e_3_1;
+}
+
+subgraph cluster_3 {
+	      label="DTH22";
+	      level=2
+e_4_1  [id="node_0" label="S0" style=filled,color=limegreen];
+e_4_2  [id="node_0" label="S1" style=filled,color=limegreen];
+e_4_1 -> e_4_2 [label="datosMedidos" ];
+e_4_2 -> e_4_1;
+}
+subgraph cluster_4 {
+	      label="BH1750";
+	      level=2
+e_5_1  [id="node_0" label="S0" style=filled,color=limegreen];
+e_5_2  [id="node_0" label="S1" style=filled,color=limegreen];
+e_5_1 -> e_5_2 [label="datosMedidos" ];
+e_5_2 -> e_5_1
+}
+
+edge [style=dotted,arrowhead=normal];
+e_1_3 -> e_3_1 [label="datosEnviados" ];
+e_2_3 -> e_3_1 [label="datosEnviados" ];
+e_4_2 -> e_1_1 [label="datosEnviados" ];
+e_5_2 -> e_2_1 [label="datosEnviados" ];
+}
