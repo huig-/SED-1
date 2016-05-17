@@ -1,0 +1,62 @@
+\chapter{Implementaci\'on}\label{sec:imp}
+En esta secci\'on se presentan los detalles de la implementaci\'on
+llevada a cabo as\'i como determinadas decisiones que se han tomado
+exponiendo la raz\'on de las mismas.
+
+El primer arduino se encargar\'a de medir tanto la temperatura como la
+humedad. Para la comunicaci\'on se ha utilizado la librer\'ia
+SerialSystem. 
+
+Sensor de temperatura y humedad
+Sensor fotovoltaico
+
+Finalmente los detalles de implementaci\'on sobre la placa
+STM32F429I-Discovery est\'an relacionados con la comunicaci\'on de la
+misma con los dos Arduinos utilizados y la utilizaci\'on de su
+pantalla LCD. En cuanto a la comunicaci\'on con los Arduinos se ha
+utilizado dos de las UARTS disponibles por la placa. La STM32F429I
+dispone de varias UARTS y USARTS. La diferencia entre las mismas es
+que las USARTS ampl\'ian la funcionalidad de las UARTS permitiendo la
+comunicaci\'on s\'incrona entre la Discovery y el otro dispositivo
+involucrado. En nuestro caso ambas nos permiten
+llevar a cabo los objetivos marcados. Para implementar la
+comunicaci\'on se ha utilizado el protocolo descrito en la
+Secci\'on~\ref{sec:comunicacion}. Para el funcionamiento de las dos
+UARTS escogidas (una por Arduino) se ha utilizado la librer\'ia de UARTS
+de sSTM. En primer lugar se lleva a cabo la inicializaci\'on de las
+mismas en las que se especifican los atributos de la comunicaci\'on
+como son el ancho de banda (9600 baudios en nuestro caso), la paridad
+o el n\'umero de bits de finalizaci\'on. Posteriormente comienza un
+bucle de espera activa para identificar la recepci\'on de los datos
+por parte de cada uno de los arduinos, tras lo cual se procesan los
+datos recibidos acorde al protocolo descrito y se procesan los mismos.
+
+En lo referente a la LCD se ha utilizado BSP (Board Support Package),
+un middleware de STM que nos permite controlar distintos perif\'ericos
+de la placa. Lo que hace BSP es mejorar la legibilidad y mejorar la
+interacci\'on entre el programador y las librerias que manejan los
+drivers de los distintos perif\'ericos. Si inspeccionamos el co\'digo
+existente en BSP referente a la pantalla LCD (...) se puede observar
+que utiliza directivas existentes en la librer\'ia de
+STM para la pantalla LCD e implementa nuevas directivas que facilitan
+la programaci\'on de la pantalla LCD permitiendo por ejemplo mostrar
+un String llamando directamente a una directiva a la que hay que
+especificarle el n\'umero de l\'inea en la que se quiere que se pinte
+y el String. Esta directiva internamente lo que hace es enviar a la
+LCD caracter por caracter el String especificado utilizando directivas
+de la librer\'ia stm32f4xx_hal_ltdc calculando de manera autom\'atica la posici\'on en la
+que se dibuja cada caracter.
+
+El controlador de la pantalla LCD soporta 2 contenedores como m\'aximo
+en los que dibujar. Estos contenedores se encuentran almacenados en la
+memoria SDRAM externa de la placa. El contenido se guarda de forma
+matricial de tal forma que se trabaja con una matriz 320x239 (o su
+equivalente vectorial), la
+resoluci\'on de la pantalla LCD . Cada una de las posiciones de esta
+matriz representa un bit y lo que hacen las funciones de BSP es
+escribir cada pixel del color indicado con la finalidad de acabar
+formando los caracteres espec\'ificos.
+
+La implementaci\'on y c\'odigo del proyecto se encuentra disponible en
+\url{https://github.com/tutugordillo/SED} dentro del directorio
+\emph{Proyecto Final}.  
