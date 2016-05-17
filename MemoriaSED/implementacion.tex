@@ -1,4 +1,4 @@
-\chapter{Implementaci\'on}\label{sec:imp}
+\section{Implementaci\'on}\label{sec:imp}
 En esta secci\'on se presentan los detalles de la implementaci\'on
 llevada a cabo as\'i como determinadas decisiones que se han tomado
 exponiendo la raz\'on de las mismas.
@@ -7,8 +7,16 @@ El primer arduino se encargar\'a de medir tanto la temperatura como la
 humedad. Para la comunicaci\'on se ha utilizado la librer\'ia
 SerialSystem. 
 
-Sensor de temperatura y humedad
-Sensor fotovoltaico
+El c\'odigo que implementa la lectura de datos recibidos tanto del
+sensor de temperatura como del de luz es inmediato seg\'un ha sido explicado en
+la secci\'on \ref{sec:arquitectura}. En ambos casos, se iniciliza el
+Serial que se utiliza para transmitir los datos en la funci\'on \emph{setup}
+y la lectura de los mismos en la funci\'on \emph{loop}. 
+
+En el sensor de temperatura, la lectura de los datos se hace de manera
+directa, sobre las direcciones de memoria en las que escribe el sensor.
+Mientras que enla lectura de la luz, se utiliza la librer\'ia Wire para la
+comunicaci\'on entre el sensor y el Arduino. 
 
 Finalmente los detalles de implementaci\'on sobre la placa
 STM32F429I-Discovery est\'an relacionados con la comunicaci\'on de la
@@ -44,7 +52,7 @@ un String llamando directamente a una directiva a la que hay que
 especificarle el n\'umero de l\'inea en la que se quiere que se pinte
 y el String. Esta directiva internamente lo que hace es enviar a la
 LCD caracter por caracter el String especificado utilizando directivas
-de la librer\'ia stm32f4xx_hal_ltdc calculando de manera autom\'atica la posici\'on en la
+de la librer\'ia $stm32f4xx\_hal\_ltdc$ calculando de manera autom\'atica la posici\'on en la
 que se dibuja cada caracter.
 
 El controlador de la pantalla LCD soporta 2 contenedores como m\'aximo

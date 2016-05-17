@@ -1,6 +1,6 @@
 \section{Modelado del Sistema}\label{sec:modelo}
 
-En la figura \ref{fig:statemachine}, se muestra el modelo del sistema que se va a
+En la Figura \ref{fig:statemachine}, se muestra el modelo del sistema que se va a
 desarrollar como una m\'aquina de estados con cinco componentes
 diferencidos:
 
@@ -22,9 +22,18 @@ diferencidos:
   la visualizaci\'on de los mismos en \emph{S7}. 
 \end{itemize}
 
+Este proyecto es un sistema completamente automatizado y, por lo
+tanto, la interacci\'on con el usuario es inexistente. Esto lleva a
+que no haya diagramas de casos de uso para el usuario. Por la misma
+raz\'on, el diagrama de secuencia es completamente similar a flujo de
+eventos esperados por la m\'aquina de estados que define el sistema.
+No obstante, durante la demo que se realice en clase, s\'i que habr\'a
+interacci\'on, ya que se provocar\'a la variaci\'on de las magnitudes
+f\'isicas medidas por los sensores involucrados en el proyecto.
 \begin{center}
 \begin{figure}[h]\label{fig:statemachine}
-\includegraphics{images/maquina_estados.png}
+\hspace{3.5cm}
+\includegraphics[scale=0.5]{images/maquina_estados.png}
 \caption{M\'aquina de estados}
 \end{figure}
 \end{center}
