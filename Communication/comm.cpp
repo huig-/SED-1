@@ -15,6 +15,8 @@ void Comm::send(SoftwareSerial serial, float data, data_type type) {
     }
     serial.print(header);
     serial.print(data);
+    serial.print('\n');
+    
 }
 
 Data Comm::receive(SoftwareSerial serial) {
