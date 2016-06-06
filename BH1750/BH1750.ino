@@ -1,3 +1,4 @@
+
 /*
 
 Example of BH1750 library usage.
@@ -15,7 +16,7 @@ Connection:
 */
 
 #include <Wire.h>
-#include <BH1750.h>
+#include "BH1750.h"
 #include "comm.h"
 
 #define rxPIN 0
@@ -36,5 +37,5 @@ void setup(){
 void loop() {
   uint16_t lux = lightMeter.readLightLevel();
   comm.send(serial, lux, LIGHT); 
-  delay(5000); //for synchronizing
+  delay(50); //for synchronizing
 }
