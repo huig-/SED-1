@@ -5,14 +5,15 @@
 \contentsline {section}{\numberline {1}Introducci\'on}{1}
 \contentsline {section}{\numberline {2}Componentes Utilizados}{3}
 \contentsline {subsection}{\numberline {2.1}Arduino UNO}{3}
-\contentsline {subsection}{\numberline {2.2}Discovery STM32F429}{3}
-\contentsline {subsection}{\numberline {2.3}M\'odulo BH1750}{3}
-\contentsline {subsection}{\numberline {2.4}M\'odulo DTH22}{4}
-\contentsline {section}{\numberline {3}Protocolo de Comunicaci\'on}{6}
-\contentsline {section}{\numberline {4}Modelado del Sistema}{7}
-\contentsline {section}{\numberline {5}Conexiones}{8}
-\contentsline {subsection}{\numberline {5.1}Modelo humedad-temperatura}{8}
-\contentsline {subsection}{\numberline {5.2}Modelo fotovoltaico}{8}
-\contentsline {subsection}{\numberline {5.3}Modelo Intercomunicaci\'on}{8}
-\contentsline {section}{\numberline {6}Implementaci\'on}{9}
-\contentsline {section}{\numberline {7}Referencias}{11}
+\contentsline {subsection}{\numberline {2.2}Discovery STM32F429I}{4}
+\contentsline {subsection}{\numberline {2.3}M\'odulo BH1750}{4}
+\contentsline {subsection}{\numberline {2.4}M\'odulo DTH22}{5}
+\contentsline {subsection}{\numberline {2.5}Leds}{6}
+\contentsline {section}{\numberline {3}Protocolo de Comunicaci\'on}{7}
+\contentsline {section}{\numberline {4}Modelado del Sistema}{8}
+\contentsline {section}{\numberline {5}Conexiones}{9}
+\contentsline {subsection}{\numberline {5.1}Modelo humedad-temperatura}{9}
+\contentsline {subsection}{\numberline {5.2}Modelo fotovoltaico}{9}
+\contentsline {subsection}{\numberline {5.3}Modelo Intercomunicaci\'on}{9}
+\contentsline {section}{\numberline {6}Implementaci\'on}{10}
+\contentsline {section}{\numberline {7}Referencias}{12}

@@ -20,7 +20,6 @@ de temperatua como de humedad. Tras las mediciones se utiliza la
 librer\'ia SerialSoftware para llevar a cabo el env\'io de los datos a
 otro dispositivo a trav\'es de su UART.
 
-<<<<<<< HEAD
 El segundo arduino se encargar\'a de la medici\'on fotovoltaica. Al
 igual que en el caso anterior se pueden distinguir tres ficheros. Dos
 con las extensiones .c y .h respectivamente y uno con la extensi\'on
@@ -28,21 +27,14 @@ con las extensiones .c y .h respectivamente y uno con la extensi\'on
 begin donde se inicializa el dispositivo, un m\'etodo configure donde
 se configura con uno de los modos explicados anteriormente en la
 Secci\'on~\ref{subsec:bh1750} y dos m\'etodos read y write que
-implementan la comunicaci\'on a trav\'es de la interfaz $I²C$ con el
+implementan la comunicaci\'on a trav\'es de la interfaz $I^2C$ con el
 sensor. El m\'etodo read implementa la funcionalidad descrita en la
 Secci\'on~\ref{subsec:bh1750}. 
-=======
-El c\'odigo que implementa la lectura de datos recibidos tanto del
-sensor de temperatura como del de luz es inmediato seg\'un ha sido explicado en
-la secci\'on \ref{sec:arquitectura}. En ambos casos, se iniciliza el
-Serial que se utiliza para transmitir los datos en la funci\'on \emph{setup}
-y la lectura de los mismos en la funci\'on \emph{loop}. 
 
 En el sensor de temperatura, la lectura de los datos se hace de manera
 directa, sobre las direcciones de memoria en las que escribe el sensor.
 Mientras que enla lectura de la luz, se utiliza la librer\'ia Wire para la
 comunicaci\'on entre el sensor y el Arduino. 
->>>>>>> 12fc3d008e9e0fd8bee3c99dda863293d8a8017b
 
 Finalmente los detalles de implementaci\'on sobre la placa
 STM32F429I-Discovery est\'an relacionados con la comunicaci\'on de la
@@ -69,13 +61,8 @@ En lo referente a la LCD se ha utilizado BSP (Board Support Package),
 un middleware de STM que nos permite controlar distintos perif\'ericos
 de la placa. Lo que hace BSP es mejorar la legibilidad y mejorar la
 interacci\'on entre el programador y las librerias que manejan los
-<<<<<<< HEAD
-drivers de los distintos perif\'ericos. Si inspeccionamos el co\'digo
+drivers de los distintos perif\'ericos.  Si inspeccionamos el c\'odigo
 existente en BSP referente a la pantalla LCD se puede observar
-=======
-drivers de los distintos perif\'ericos. Si inspeccionamos el c\'odigo
-existente en BSP referente a la pantalla LCD (...) se puede observar
->>>>>>> 12fc3d008e9e0fd8bee3c99dda863293d8a8017b
 que utiliza directivas existentes en la librer\'ia de
 STM para la pantalla LCD e implementa nuevas directivas que facilitan
 la programaci\'on de la pantalla LCD permitiendo por ejemplo mostrar
@@ -83,11 +70,7 @@ un String llamando directamente a una directiva a la que hay que
 especificarle el n\'umero de l\'inea en la que se quiere que se pinte
 y el String. Esta directiva internamente lo que hace es enviar a la
 LCD caracter por caracter el String especificado utilizando directivas
-<<<<<<< HEAD
-de la librer\'ia stm32f4xx\_hal\_ltdc calculando de manera autom\'atica la posici\'on en la
-=======
 de la librer\'ia $stm32f4xx\_hal\_ltdc$ calculando de manera autom\'atica la posici\'on en la
->>>>>>> 12fc3d008e9e0fd8bee3c99dda863293d8a8017b
 que se dibuja cada caracter.
 
 El controlador de la pantalla LCD soporta 2 contenedores como m\'aximo
